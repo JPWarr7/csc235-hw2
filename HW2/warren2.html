@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<!--	Name:	Jonathan Warren
+        Course:	235.02
+        HomeWork:	#2
+        Git-Hub:	https://github.com/yourName/yourHomeWork
+-->	
+    <head>
+        <title>Yahtzee</title>
+        <style type="text/css">
+            <!--
+                h1 {text-align:center;}
+                div.a{text-align:center;margin-bottom:4em;}
+                table.a{margin-left:auto;margin-right:auto;}
+                td.a {text-align:right;font-family:Helvetica;
+                    font-weight:bold;}
+
+                td.b {background-color:#AEAFFF;width:2.5em;
+                    height:2em;border:3px groove #AEAFB4;}
+                
+                td.c {width:10em;text-align:center;}
+
+                button.a {background-color: #6000C9;
+                    font-family:"Times New Roman";font-size:18pt;
+                    font-weight:bold;color:#DEDEDE}
+            -->
+        </style>
+    </head>
+    <body>
+        <h1>Yahtzee</h1>
+        <script language = "JavaScript">
+            <!--
+                var v = new Array(0,0,0,0,0);
+                var h = new Array(false,false,false,false,false);
+                var f = new Array(0,0,0,0,0,0,0); //f[3] = freq(3)
+                var lockedScores = new Array(false,false,false,false,false,false,false,false,false);
+                var total = 0;
+                function roll() {
+                    for (var i=1;i<=6;i++) {f[i] = 0;}    
+                        for (var i=0;i<5;i++){
+                            if(!h[i]){
+                                var t = document.getElementById("d"+i);
+                                v[i] = Math.floor(6*Math.random())+1;
+                                t.src = "pix/dice"+v[i]+".gif";
+                            }
+                            f[v[i]]++;
+                        }
+                }
+
+                function scr(x) {
+                    if(!lockedScores[x-1]) {
+                        var t = document.getElementById("s"+x);
+                        var score = 0;
+                        if(x<=6){
+                            score = x * f[x];
+                            t.innerHTML = score;
+                        }
+                        
+                        if(x==7){
+                            for (var i=1;i<=6;i++) {
+                                score += i * f[i]
+                                if (f[i] >= 3) {
+                                    t.innerHTML = score;   
+                                } 
+                            }
+                        }
+                        if(x==8){
+                            for (var i=1;i<=6;i++) {
+                                score += i * f[i]
+                                if (f[i] >= 4) {
+                                    t.innerHTML = score;   
+                                } 
+                            }
+                        }
+                        if(x==9){
+                            for (var i=1;i<=6;i++) {
+                                score += i * f[i]
+                                if (f[i] >= 5) {
+                                    t.innerHTML = score;   
+                                } 
+                            }
+                        }
+                        
+                    }
+                }
+
+                function hold(x) {
+                    var t = document.getElementById("d"+x);
+                    h[x] = !h[x];
+                    if(h[x]){t.src = "pix/diceX"+v[x]+".gif";}
+                    else {t.src = "pix/dice"+v[x]+".gif";}
+                }
+
+                function clr(x) {
+                    if(!lockedScores[x-1]) {
+                        var t = document.getElementById("s"+x);
+                        t.innerHTML = '';
+                    }
+                }
+                function lockScore(x) {
+                    if(!lockedScores[x-1]) {
+                        scr(x);
+                        var t = document.getElementById("s"+x);
+                        total += parseInt(t.innerHTML);
+                        lockedScores[x-1] = true;
+                        var x = document.getElementById("s10");
+                        x.innerHTML = total;
+                    }
+                }
+            -->
+        </script>
+        <div class="a">
+            <img id="d0" onClick="hold(0)" src="pix/dice0.gif">
+            <img id="d1" onClick="hold(1)" src="pix/dice0.gif">
+            <img id="d2" onClick="hold(2)" src="pix/dice0.gif">
+            <img id="d3" onClick="hold(3)" src="pix/dice0.gif">
+            <img id="d4" onClick="hold(4)" src="pix/dice0.gif">
+        </div>
+        <table class="a">
+            <tr> 
+                <td class ="a">1's </td> 
+                <td id="s1" class = "b" 
+                onMouseOver="scr(1);" 
+                onMouseOut="clr(1);" 
+                onClick="lockScore(1);"></td> 
+                <td class ="c" rowspan="5"> 
+                    <button class="a"onClick="roll()">Roll</button> </td>
+            </tr>
+            <tr> 
+                <td class ="a">2's </td> 
+                <td id="s2" class = "b" 
+                onMouseOver="scr(2);" 
+                onMouseOut="clr(2);"
+                onClick="lockScore(2);"> </td>
+            </tr>
+            <tr> 
+                <td class ="a">3's </td> 
+                <td id="s3" class = "b" 
+                onMouseOver="scr(3);" 
+                onMouseOut="clr(3);"
+                onClick="lockScore(3);"> </td>
+            </tr>
+            <tr> 
+                <td class ="a">4's </td> 
+                <td id="s4" class = "b" 
+                onMouseOver="scr(4);" 
+                onMouseOut="clr(4);"
+                onClick="lockScore(4);"> </td>
+            </tr> 
+            <tr> 
+                <td class ="a">5's </td> 
+                <td id="s5" class = "b" 
+                onMouseOver="scr(5);" 
+                onMouseOut="clr(5);"
+                onClick="lockScore(5);"> </td>
+            </tr>
+            <tr> 
+                <td class ="a">6's </td> 
+                <td id="s6" class = "b" 
+                onMouseOver="scr(6);" 
+                onMouseOut="clr(6);"
+                onClick="lockScore(6);"> </td>
+                <td class="c" rowspan ="5">
+                    <button class="b"
+                    onClick="window.location.reload()">
+                    New game</button></td>
+            </tr>
+            <tr> 
+                <td class ="a">3 of a kind </td> 
+                <td id="s7" class = "b"
+                onMouseOver="scr(7);" 
+                onMouseOut="clr(7);"
+                onClick="lockScore(7);"> </td>
+            </tr> 
+            <tr> 
+                <td class ="a">4 of a kind </td> 
+                <td id="s8" class = "b"
+                onMouseOver="scr(8);" 
+                onMouseOut="clr(8);"
+                onClick="lockScore(8);"> </td>
+            </tr>
+            <tr> 
+                <td class ="a">Yahtzee </td> 
+                <td id="s9" class = "b"
+                onMouseOver="scr(9);" 
+                onMouseOut="clr(9);"
+                onClick="lockScore(9);"> </td>
+            </tr>
+            <tr> 
+                <td class ="a">Total </td> 
+                <td id ="s10" class = "b"> </td>
+            </tr>   
+        
+        </table>    
+    </body>
+</html>
